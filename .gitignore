@@ -1,0 +1,20 @@
+# Node moludes
+backend/node_modules/
+frontend/node_modules/
+
+#Build folders
+frontend/build/
+frontend/dist/
+
+# Env files
+*.env
+backend/.env
+
+#Logs
+*.log 
+
+
+# OS & editor junk
+.DS_Store
+.vscode/
+Thumbs.db
