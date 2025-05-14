@@ -16,7 +16,7 @@ const signupController = async (req,res)=>{
         firstName:z.string(),
         lastName:z.string(),
         password:z.string().min(8),
-        role:z.string().enum(["admin","user"])
+        role:z.string().enum(["admin","user"]).default("user")
     })
     const {success}=signupBody.safeParse(req.body);
     if(!success){
