@@ -1,21 +1,22 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const SignUpSchema = require("../models/signUp");
-const accounts= require("../models/accountsSchema");
+
 const {z} = require("zod")
 require("dotenv").config();
 
 
 const signupController = async (req,res)=>{
-    const{email,firstName,lastName,password}=req.body;
-    if(!email||!firstName||!lastName||!password){
+    const{email,firstName,lastName,password,role}=req.body;
+    if(!email||!firstName||!lastName||!password||!role){
         return res.status(400).json({message:"Provide all required information"})
     }
     const signupBody = z.object({
         email:z.string().email(),
         firstName:z.string(),
         lastName:z.string(),
-        password:z.string()
+        password:z.string().min(8),
+        role:z.string().enum(["admin","user"])
     })
     const {success}=signupBody.safeParse(req.body);
     if(!success){
@@ -35,15 +36,13 @@ const signupController = async (req,res)=>{
                 email,
                 firstName,
                 lastName,
-                password:hashedPassword
+                password:hashedPassword,
+                role
             }
         )
        const user = await data.save();
 
-       await accounts.create({
-        userId:user._id,
-        balance:1+Math.random()*10000
-       })
+     
         const token = await jwt.sign({id:user._id},process.env.JWT_SECRET);
         const { password:_,...safeData}=data._doc;
         return res.status(200).json({safeData,token});

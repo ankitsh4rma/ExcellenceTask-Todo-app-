@@ -12,6 +12,7 @@ function SignUp(){
         const[firstName,setFirstName]=useState("");
         const[lastName,setLastName]=useState("");
         const[password,setPassword]=useState("");
+        const[role,setRole]=useState("user");
         const navigate= useNavigate();
     return<div className="bg-slate-300 h-screen flex justify-center">
     <div className="flex flex-col justify-center">
@@ -22,7 +23,9 @@ function SignUp(){
             <InputBox setName={setFirstName} label={"First Name"} placeholder={"Ankit"}/>
             <InputBox setName={setLastName} label={"Last Name"} placeholder={"Sharma"}/>
             <InputBox setName={setEmail} label={"Email"} placeholder={"ankitsharma@example.com"}/>
+            <InputBox setName={setRole} label={"Role"} placeholder={"user"}/>
             <InputBox setName={setPassword} label={"Password"} placeholder={"123456"}/>
+            
             <div className="pt-4"><Button onClick={async()=>{
                 const response= await axios.post("http://localhost:3000/api/v1/signup",{
                     email:email,

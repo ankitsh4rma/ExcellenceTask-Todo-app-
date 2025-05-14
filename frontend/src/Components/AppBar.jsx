@@ -2,7 +2,7 @@
 export function AppBar(){
 return<div className="flex justify-between shadow h-14">
     <div className=" flex flex-col justify-center ml-4 font-semibold">
-        NexPay App
+        Todo App
     </div>
     <div className="flex">
         <div className="flex flex-col justify-center h-full mr-4" >Hello</div>
